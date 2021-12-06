@@ -8,6 +8,11 @@ from selenium.webdriver.common.by import By
 
 class TestStartPage:
 
+    @staticmethod
+    def random_num():
+        """Generate random number"""
+        return str(random.choice(range(11111, 99999)))
+
     def test_start_page(self):
         """Sample test"""
         # Create driver
@@ -32,12 +37,7 @@ class TestStartPage:
         # Verify message
         assert message.text == "Error"
 
-    def random_num(self):
-        """Generate random number"""
-        return str(random.choice(range(11111, 99999)))
 
-    # Создать тест (поглядывая на имеющийся) который проверяет ошибку при логине с инвалидным паролем и логином.
-    # (Проверка таже, добавляется только заполнение полей)
     def test_invalid_login(self):
         """
         - Create driver
