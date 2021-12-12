@@ -8,11 +8,12 @@ from selenium.webdriver.common.by import By
 
 class TestStartPage:
 
-    def random_num(self):
+    @staticmethod
+    def random_num():
         """Generate random number"""
-        return str(random.choice(range(111111111111, 999999999999)))
+        return str(random.choice(range(111111, 999999)))
 
-    def test_registration(self):
+    def test_registration_page(self):
         """
         - Create driver
         - Open start page
@@ -24,30 +25,130 @@ class TestStartPage:
         - Verify error message
         """
         # Create driver
+        driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2.exe")
+        # Open start page
+        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Find and clean Username field
+        username = driver.find_element(by=By.XPATH, value=".//*[@id='username-register']")
+        username.clear()
+        sleep(1)
+        username.send_keys(f"Serhii{self.random_num()}")
+        # Find and clean Email
+        Email = driver.find_element(by=By.XPATH, value=".//*[@id='email-register']")
+        Email.clear()
+        sleep(0.5)
+        Email.send_keys(f"{self.random_num()}@gmail.com")
+        # Find and clean Password field
+        password = driver.find_element(by=By.XPATH, value=".//*[@id='password-register']")
+        password.clear()
+        sleep(0.5)
+        password.send_keys(f"224455{self.random_num()}")
+        # Find Sign In button
+        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign up for OurApp']")
+        # Click button
+        button.click()
+        # Find error message
+        sleep(0.5)
+        # message = driver.find_element(by=By.XPATH, value=".//div[@h2]")
+        # Verify message
+        # assert message.text == "Hello"
+
+    def test_valid_login(self):
+        # Create driver
         driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2")
         # Open start page
         driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
         # Find and clean Username field
-        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Pick a username']")
+        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
         username.clear()
-        sleep(1)
-        username.send_keys(f"userName{self.random_num()}")
-        # Find and clean Email field
-        email = driver.find_element(by=By.XPATH, value=".//input[@placeholder='you@example.com']")
-        email.clear()
-        sleep(1)
-        email.send_keys(f"{self.random_num()}@gmail.com")
+        sleep(0.5)
+        username.send_keys(f"Serhii")
         # Find and clean Password field
-        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Create a password']")
+        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
         password.clear()
-        sleep(1)
-        password.send_keys(f"Pwd{self.random_num()}")
+        sleep(0.5)
+        password.send_keys(f"112233445566")
         # Find Sign In button
-        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign up for OurApp']")
-        sleep(1)
+        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign In']")
+        sleep(0.5)
         # Click button
         button.click()
-        # Find  message
-        message = driver.find_element(by=By.XPATH, value=".//*[h2]")
-        # Verify message after registration
-        # assert message.text == "Hello"
+        # find Sign out button
+        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign Out']")
+        button.click()
+        sleep(0.5)
+
+    def test_login_username_invalid(self):
+        # Create driver
+        driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2")
+        # Open start page
+        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Find and clean Username field
+        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
+        username.clear()
+        sleep(0.5)
+        # Find and clean Password field
+        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
+        password.clear()
+        sleep(0.5)
+        password.send_keys(f"112233445566")
+        # Find Sign In button
+        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign In']")
+        sleep(0.5)
+        # Click button
+        button.click()
+        # Error message
+        message = driver.find_element(by=By.XPATH, value=".//div[@class='alert alert-danger text-center']")
+        # Verify message
+        assert message.text == "Error"
+
+    def test_login_password_invalid(self):
+        # Create driver
+        driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2")
+        # Open start page
+        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Find and clean Username field
+        username = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Username']")
+        username.clear()
+        sleep(0.5)
+        username.send_keys(f"Serhii")
+        # Find and clean Password field
+        password = driver.find_element(by=By.XPATH, value=".//input[@placeholder='Password']")
+        password.clear()
+        sleep(0.5)
+        # Find Sign In button
+        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign In']")
+        sleep(0.5)
+        # Click button
+        button.click()
+        # Error message
+        message = driver.find_element(by=By.XPATH, value=".//div[@class='alert alert-danger text-center']")
+        # Verify message
+        assert message.text == "Error"
+
+    def test_invalid_registration_page(self):
+        """Sample test"""
+        # Create driver
+        driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2.exe")
+        # Open start page
+        driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
+        # Find and clean Username field
+        username = driver.find_element(by=By.XPATH, value=".//*[@id='username-register']")
+        username.clear()
+        sleep(0.5)
+        username.send_keys()
+        # Find and clean Email
+        Email = driver.find_element(by=By.XPATH, value=".//*[@id='email-register']")
+        Email.clear()
+        sleep(0.5)
+        Email.send_keys()
+        # Find and clean Password field
+        password = driver.find_element(by=By.XPATH, value=".//*[@id='password-register']")
+        password.clear()
+        sleep(0.5)
+        password.send_keys()
+        # Find Sign In button
+        button = driver.find_element(by=By.XPATH, value=".//button[text()='Sign up for OurApp']")
+        # Click button
+        button.click()
+        sleep(0.5)
