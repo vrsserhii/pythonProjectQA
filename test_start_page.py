@@ -16,7 +16,7 @@ class TestStartPage:
     def test_start_page(self):
         """Sample test"""
         # Create driver
-        driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2.exe")
+        driver = webdriver.WebDriver(executable_path="./drivers/chromedriver-2")
         # Open start page
         driver.get("https://qa-complex-app-for-testing.herokuapp.com/")
         # Find and clean Username field
