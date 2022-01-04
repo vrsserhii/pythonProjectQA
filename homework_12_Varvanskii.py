@@ -49,9 +49,11 @@ class TestStartPage:
         button.click()
         # Find error message
         sleep(0.5)
+        # hello_message = driver.find_element(by=By.XPATH, value=".//h2")
+        # assert hello_message.text == f"Hello, your feed is empty."
         # message = driver.find_element(by=By.XPATH, value=".//div[@h2]")
         # Verify message
-        # assert message.text == "Hello"
+        # assert message.text == f"Hello"
 
     def test_valid_login(self):
         # Create driver
