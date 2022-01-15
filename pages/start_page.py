@@ -47,3 +47,4 @@ class StartPage(BasePage):
         message = self.driver.find_element(by=By.XPATH, value=self.constants.SIGN_IN_ERROR_MESSAGE_XPATH)
         # Verify message
         assert message.text == self.constants.SIGN_IN_ERROR_MESSAGE_TEXT
+        # self
