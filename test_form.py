@@ -20,6 +20,7 @@ class TestStartPage(BaseTest):
     def driver(self):
         """Create and return driver and close after test"""
         driver = webdriver.WebDriver(BaseConstants.DRIVER_PATH)
+        driver.implicitly_wait(1)
         yield driver
         driver.close()
 
@@ -76,7 +77,7 @@ class TestStartPage(BaseTest):
         # fill valid values
         main_page = start_page.login(username_value, password_value)
         self.log.info("Logged as '%s'", username_value)
-        # verify wellcome message
+        # verify 'welcome' message
         main_page.verify_welcome_message(username_value)
         self.log.info("Welcome message was verified")
 
